@@ -1,0 +1,15 @@
+#!/bin/sh
+
+platex -shell-escape -synctex=1 "$1"
+
+# if exist .bib file, run biber
+ls *.bib >/dev/null 2>&1
+if [ $? -eq 0 ];
+then
+  biber --bblencoding=utf8 -u -U --output_safechars $(basename $1 .tex)
+fi
+
+platex -shell-escape -synctex=1 "$1"
+
+# make pdf
+dvipdfmx "`basename "$1" .tex`"
