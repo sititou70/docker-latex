@@ -2,7 +2,7 @@
 The docker image for building tex to pdf.
 
 # useage
-use [this script](https://sititou70.github.io/?e=memo20170703)
+read [this blog entry](https://sititou70.github.io/Dockerで簡単TeX環境構築/)
 
 # BiBTeX
 biber command is available and run automatically when *.bib file exist at current directory.
