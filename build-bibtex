@@ -2,7 +2,12 @@
 
 platex -shell-escape -synctex=1 "$1"
 
+bibtex $(basename $1 .tex)
+
+platex -shell-escape -synctex=1 "$1"
+platex -shell-escape -synctex=1 "$1"
 platex -shell-escape -synctex=1 "$1"
 
 # make pdf
 dvipdfmx "`basename "$1" .tex`"
+

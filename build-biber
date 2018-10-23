@@ -2,6 +2,8 @@
 
 platex -shell-escape -synctex=1 "$1"
 
+biber --bblencoding=utf8 -u -U --output_safechars $(basename $1 .tex)
+
 platex -shell-escape -synctex=1 "$1"
 
 # make pdf
