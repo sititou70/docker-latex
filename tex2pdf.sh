@@ -1,11 +1,22 @@
-fileName=${@%.*}
+#!/bin/bash
 
-docker run --rm -v `pwd`/:/latex/ sititou70/platex build "$@"
+SCRIPT_NAME=$1
+FILE_NAME=$(basename $2 .tex)
 
-rm ${fileName}.aux
-rm ${fileName}.dvi
-rm ${fileName}.synctex.gz
-rm ${fileName}.log
-rm ${fileName}.bbl
-rm ${fileName}.blg
+docker run --rm -v $(pwd)/:/latex/ sititou70/platex $SCRIPT_NAME $FILE_NAME.tex
+
+REMOVE_EXTS=(
+  aux
+  dvi
+  synctex.gz
+  log
+  bbl
+  blg
+  lof
+  lot
+  toc
+)
+for ext in ${REMOVE_EXTS[@]}; do
+  rm -f $FILE_NAME.$ext
+done
 
