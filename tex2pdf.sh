@@ -15,6 +15,7 @@ REMOVE_EXTS=(
   lof
   lot
   toc
+  out
 )
 for ext in ${REMOVE_EXTS[@]}; do
   rm -f $FILE_NAME.$ext
