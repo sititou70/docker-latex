@@ -1,9 +1,13 @@
 #!/bin/bash
 
-SCRIPT_NAME=$1
-FILE_NAME=$(basename $2 .tex)
+LATEX_MODE="$1"
+BIBTEX_MODE="$2"
+FILE_NAME=$(basename $3 .tex)
 
-docker run --rm -v $(pwd)/:/latex/ sititou70/platex $SCRIPT_NAME $FILE_NAME.tex
+docker run \
+  --rm \
+  -v $(pwd)/:/latex/ \
+  sititou70/latex /usr/bin/build $LATEX_MODE $BIBTEX_MODE "$FILE_NAME.tex"
 
 REMOVE_EXTS=(
   aux
@@ -16,6 +20,9 @@ REMOVE_EXTS=(
   lot
   toc
   out
+  bcf
+  run.xml
+  xcp
 )
 for ext in ${REMOVE_EXTS[@]}; do
   rm -f $FILE_NAME.$ext

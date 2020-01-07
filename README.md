@@ -1,24 +1,25 @@
-# docker-platex
-The docker image for building tex to pdf.
+# docker-latex
+The docker image to convert tex to pdf.
 
 # useage
-download `tex2pdf.sh` on directory there is target tex file, and run `./tex2pdf.sh [SCRIPT_NAME] [tex file]`.
+download `tex2pdf.sh` on directory there is target tex file
+and run `./tex2pdf.sh [latex mode] [bibtex mode] [tex file]`
 
-## SCRIPT_NAME
-below scripts are available in container.
+## latex mode
+* latex
+* platex
+* uplatex
 
-* build
-* build-bibtex
-* build-pbibtex
-* build-biber
+## bibtex mode
+* nobibtex
+* bibtex
+* pbibtex
+* upbibtex
+* biber
+
+### example
+`./tex2pdf.sh platex pbibtex main.tex`
 
 # docker hub
-[sititou70/platex](https://hub.docker.com/r/sititou70/platex/)
-
-# thanks
-## thii
-This image is using [thii/docker-platex](https://github.com/thii/docker-platex).
-
-## D.Takahashi.cpp14
-technical cooperated to correspond to bibtex.
+[sititou70/latex](https://hub.docker.com/r/sititou70/latex/)
 

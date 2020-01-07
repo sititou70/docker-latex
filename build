@@ -1,8 +1,0 @@
-#!/bin/sh
-
-platex -shell-escape -synctex=1 "$1"
-
-platex -shell-escape -synctex=1 "$1"
-
-# make pdf
-dvipdfmx "`basename "$1" .tex`"

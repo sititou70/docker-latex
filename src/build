@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# functions
+do_latex () {
+  latex_mode="$1"
+  filename="$2"
+  $latex_mode -shell-escape -synctex=1 "$filename"
+}
+
+make_pdf () {
+  base_filename=$(basename "$1" .tex)
+  dvipdfmx "$base_filename"
+}
+
+USAGE="\
+$0 [latex mode] [bibtex mode] [tex file]
+
+latex mode: latex | platex | uplatex
+bibtex mode: nobibtex | bibtex | pbibtex | upbibtex | biber"
+usage_exit () {
+  echo "$USAGE"
+  exit 1
+}
+
+# args
+LATEX_MODE=""
+[ "$1" = "latex" ] && LATEX_MODE="$1"
+[ "$1" = "platex" ] && LATEX_MODE="$1"
+[ "$1" = "uplatex" ] && LATEX_MODE="$1"
+[ "$LATEX_MODE" = "" ] && echo "latex mode: '$1' is invalid value" && usage_exit
+
+BIBTEX_MODE=""
+[ "$2" = "nobibtex" ] && BIBTEX_MODE="$2"
+[ "$2" = "bibtex" ] && BIBTEX_MODE="$2"
+[ "$2" = "pbibtex" ] && BIBTEX_MODE="$2"
+[ "$2" = "upbibtex" ] && BIBTEX_MODE="$2"
+[ "$2" = "biber" ] && BIBTEX_MODE="$2"
+[ "$BIBTEX_MODE" = "" ] && echo "bibtex mode: '$2' is invalid value" && usage_exit
+
+FILENAME="$3"
+BASE_FILENAME=$(basename $FILENAME .tex)
+
+# main
+## pre latex
+do_latex $LATEX_MODE $FILENAME
+
+## bibtex
+if [ "$BIBTEX_MODE" != "nobibtex" ]; then
+  if [ "$BIBTEX_MODE" == "biber" ]; then
+    biber --bblencoding=utf8 -u -U --output_safechars $BASE_FILENAME
+  else
+    $BIBTEX_MODE $BASE_FILENAME
+  fi
+fi
+
+## post latex
+do_latex $LATEX_MODE $FILENAME
+
+# see olso: https://ja.wikipedia.org/wiki/BibTeX#BibTeX_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AE%E5%8B%95%E4%BD%9C
+[ "$BIBTEX_MODE" = "bibtex" \
+  -o "$BIBTEX_MODE" = "pbibtex" \
+  -o "$BIBTEX_MODE" = "upbibtex" ] \
+  && do_latex $LATEX_MODE $FILENAME \
+  && do_latex $LATEX_MODE $FILENAME
+
+## make pdf
+make_pdf $FILENAME
+
