@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # functions
-do_latex () {
+function do_latex() {
   latex_mode="$1"
   filename="$2"
   $latex_mode -shell-escape -synctex=1 "$filename"
 }
 
-make_pdf () {
+function make_pdf() {
   base_filename=$(basename "$1" .tex)
   dvipdfmx "$base_filename"
 }
@@ -17,7 +17,7 @@ $0 [latex mode] [bibtex mode] [tex file]
 
 latex mode: latex | platex | uplatex
 bibtex mode: nobibtex | bibtex | pbibtex | upbibtex | biber"
-usage_exit () {
+function usage_exit() {
   echo "$USAGE"
   exit 1
 }
@@ -59,10 +59,9 @@ do_latex $LATEX_MODE $FILENAME
 # see olso: https://ja.wikipedia.org/wiki/BibTeX#BibTeX_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AE%E5%8B%95%E4%BD%9C
 [ "$BIBTEX_MODE" = "bibtex" \
   -o "$BIBTEX_MODE" = "pbibtex" \
-  -o "$BIBTEX_MODE" = "upbibtex" ] \
-  && do_latex $LATEX_MODE $FILENAME \
-  && do_latex $LATEX_MODE $FILENAME
+  -o "$BIBTEX_MODE" = "upbibtex" ] &&
+  do_latex $LATEX_MODE $FILENAME &&
+  do_latex $LATEX_MODE $FILENAME
 
 ## make pdf
 make_pdf $FILENAME
-
