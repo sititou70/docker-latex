@@ -46,7 +46,7 @@ do_latex $LATEX_MODE $FILENAME
 
 ## bibtex
 if [ "$BIBTEX_MODE" != "nobibtex" ]; then
-  if [ "$BIBTEX_MODE" == "biber" ]; then
+  if [ "$BIBTEX_MODE" = "biber" ]; then
     biber --bblencoding=utf8 -u -U --output_safechars $BASE_FILENAME
   else
     $BIBTEX_MODE $BASE_FILENAME
