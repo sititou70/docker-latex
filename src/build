@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -u
 
 # functions
 function do_latex() {
