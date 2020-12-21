@@ -58,7 +58,7 @@ fi
 ## post latex
 do_latex $LATEX_MODE $FILENAME
 
-# see olso: https://ja.wikipedia.org/wiki/BibTeX#BibTeX_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AE%E5%8B%95%E4%BD%9C
+# see also: https://ja.wikipedia.org/wiki/BibTeX#BibTeX_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AE%E5%8B%95%E4%BD%9C
 [ "$BIBTEX_MODE" = "bibtex" \
   -o "$BIBTEX_MODE" = "pbibtex" \
   -o "$BIBTEX_MODE" = "upbibtex" ] &&
