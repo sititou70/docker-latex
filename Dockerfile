@@ -12,14 +12,13 @@ RUN apt update \
     texlive-fonts-extra \
     texlive-lang-cjk \
     texlive-lang-japanese \
+    latexmk \
     texinfo \
     xdvik-ja \
     biber \
   && apt clean \
   && apt autoremove \
   && rm -rf /var/lib/apt/lists/*
-
-COPY src/build /usr/bin/
 
 VOLUME /latex
 WORKDIR /latex

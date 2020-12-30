@@ -1,4 +1,4 @@
-set fileName=%~n3
+set fileName=%~n1
 
 set dockerTexTemp01=%CD:\=/%
 set dockerTexTemp02=%dockerTexTemp01:A:=a%
@@ -28,7 +28,7 @@ set dockerTexTemp25=%dockerTexTemp24:X:=x%
 set dockerTexTemp26=%dockerTexTemp25:Y:=y%
 set fixedCd=%dockerTexTemp26:Z:=z%
 
-docker run --rm -v //%fixedCd%://latex sititou70/latex build %1 %2 %~nx3
+docker run --rm -v //%fixedCd%://latex sititou70/latex:v2.0.0 latexmk -pdfdvi %fileName%
 
 del %fileName%.aux
 del %fileName%.dvi
